@@ -24,6 +24,7 @@
     "pinia-plugin-persistedstate": "^3.2.1",
     "vue": "^3.3.11",
     "vue-codemirror": "^6.1.1",
+    "vuedraggable": "next",
     "vuetify": "^3.5.1"
   },
   "devDependencies": {

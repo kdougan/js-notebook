@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { deepObjectToArray } from '@/lib/utils'
+import { deepObjectToArray, uuid } from '@/lib/utils'
 import * as esprima from 'esprima'
 
 export const useBlockStore = defineStore(
@@ -14,13 +14,20 @@ export const useBlockStore = defineStore(
     // ---------- SHEETS ----------
 
     const sheets = ref([
-      { name: 'New Sheet', blocks: [], env: null, entityType: null, entityId: null }
+      { id: uuid(), name: 'New Sheet', blocks: [], env: null, entityType: null, entityId: null }
     ])
     const selectedSheetIndex = ref(0)
     const selectedSheet = computed(() => sheets.value[selectedSheetIndex.value])
 
     const addSheet = () => {
-      sheets.value.push({ name: 'Sheet', blocks: [], env: null, entityType: null, entityId: null })
+      sheets.value.push({
+        id: uuid(),
+        name: 'Sheet',
+        blocks: [],
+        env: null,
+        entityType: null,
+        entityId: null
+      })
     }
 
     const removeSheet = (index) => {
@@ -40,12 +47,13 @@ export const useBlockStore = defineStore(
     const addBlock = (kind) => {
       switch (kind) {
         case 'text':
-          blocks.value.push({ kind: 'text', text: '' })
+          blocks.value.push({ id: uuid(), kind: 'text', text: '' })
           return
         case 'code':
           blocks.value.push({
+            id: uuid(),
             kind: 'code',
-            code: 'let result = {};\nresult;',
+            code: '',
             prevCode: null,
             result: undefined,
             error: null
